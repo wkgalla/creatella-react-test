@@ -1,0 +1,18 @@
+.item-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.item-price {
+    font-size: 18px;
+    color: yellowgreen;
+}
+
+.item-face {
+    display: flex;
+    height: 100px;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+}
