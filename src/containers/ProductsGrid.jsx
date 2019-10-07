@@ -1,37 +1,56 @@
 import React, {useEffect} from "react";
 import { connect } from "react-redux";
-import { asyncFetchProducts } from '../actions/products'
+import { moveFetchedProductsToList, asyncFetchProducts, loadProducts } from '../actions/products'
 import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
 
 const ProductsGridContainer = props => {
+  const {isFetching, loadMore, products, loadProducts, moveFetchedProducts, fetchProducts} = props;
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight) {
+        if (!loadMore) {
+          loadProducts();
+        }
+      }
+    }
+
+    if(!isFetching && loadMore) {
+      moveFetchedProducts();
+    }
+
     window.addEventListener("scroll", handleScroll, true);
-    props.fetchProducts();
 
     return function cleanup() {
       window.removeEventListener("scroll", handleScroll, true);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFetching, loadMore, loadProducts, moveFetchedProducts]);
 
-  function handleScroll () {
-    if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.scrollHeight) {
-      props.fetchProducts();
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  useEffect(() => {
+    if(products.length === 0 && !isFetching ) {
+      moveFetchedProducts();
     }
-  }
+  }, [products, isFetching, moveFetchedProducts])
 
-  return <ProductsGrid products={props.products} />;
+  return <ProductsGrid products={products} />;
 };
 
-const mapStateToProps = ({ products }) => {
+const mapStateToProps = ({ products, isFetching, loadMoreProducts }) => {
   return {
-    products: products
+    products: products,
+    isFetching: isFetching,
+    loadMore: loadMoreProducts
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchProducts: () => dispatch(asyncFetchProducts())
+    moveFetchedProducts: () => dispatch(moveFetchedProductsToList()),
+    fetchProducts: () => dispatch(asyncFetchProducts()),
+    loadProducts: () => dispatch(loadProducts())
   };
 }
 

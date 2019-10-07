@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux'
-import {SET_PRODUCTS, SET_FETCHING} from '../actions/products'
+import {
+  SET_PRODUCTS,
+  SET_NEXT_PRODUCTS,
+  SET_FETCHING,
+  LOAD_MORE_PRODUCTS,
+  PRODUCTS_LOADED_FROM_STORE
+} from '../actions/products'
 
 const products = (state = [], action) => {
     switch (action.type) {
@@ -10,7 +16,18 @@ const products = (state = [], action) => {
     }
 }
 
-const isFetching = (state = false, action) => {
+const nextProducts = (state = [], action) => {
+  switch (action.type) {
+    case SET_NEXT_PRODUCTS:
+      return action.productsArray
+    case PRODUCTS_LOADED_FROM_STORE:
+      return []
+    default:
+      return state
+  }
+}
+
+const isFetching = (state = true, action) => {
   switch (action.type) {
     case SET_FETCHING:
       return action.isFetching
@@ -19,9 +36,22 @@ const isFetching = (state = false, action) => {
   }
 }
 
+const loadMoreProducts = (state = false, action) => {
+  switch (action.type) {
+    case LOAD_MORE_PRODUCTS:
+      return true;
+    case PRODUCTS_LOADED_FROM_STORE:
+      return false;
+    default:
+      return state
+  }
+}
+
 const productReducer = combineReducers({
     products,
-    isFetching
+    nextProducts,
+    isFetching,
+    loadMoreProducts
   })
   
   export default productReducer
