@@ -29,22 +29,22 @@ const formatDate = (date) => {
 const ProductCard = ({item}) => {
   return (
     <Card>
-    <Card.Content>
-      <div className="item-face" style={{fontSize: item.size}}>
-        <Card.Header>{item.face}</Card.Header>
-      </div>
-      <Divider/>
-      <Card.Meta>
-        <span className='date'>{formatDate(item.date)}</span>
-      </Card.Meta>
-      <Card.Description className="item-description">
-        Size {item.size} <span className="item-price">${item.price}</span>
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      {item.id}
-    </Card.Content>
-  </Card>
+      <Card.Content>
+        <div className="item-face" style={{fontSize: item.size}}>
+          <Card.Header>{item.face}</Card.Header>
+        </div>
+        <Divider/>
+        <Card.Meta>
+          <span className='date'>{formatDate(item.date)}</span>
+        </Card.Meta>
+        <Card.Description className="item-description">
+          Size {item.size} <span className="item-price">${item.price}</span>
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        {item.id}
+      </Card.Content>
+    </Card>
   );
 };
 

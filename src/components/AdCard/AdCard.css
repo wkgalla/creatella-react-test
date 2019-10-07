@@ -1,0 +1,8 @@
+.ad-card{
+    height: 100%;
+}
+
+.ad-image{
+    height: 100%;
+    object-fit: cover;
+}
