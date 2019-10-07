@@ -11,8 +11,8 @@ const AdCardContainer = ({itemIndex}) => {
 
   const rIndex = (itemIndex + 1) / ADS_CARD_INTERVAL - 1;
   if(rIndex === rList.length) {
-    let r = Math.floor(Math.random() * 100);
-    if(r === rList[rList.length]) {
+    let r = Math.floor(Math.random() * 10);
+    if(r === rList[rList.length - 1]) {
       r = r + 1;
     }
     rList.push(r);
