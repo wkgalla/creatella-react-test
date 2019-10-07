@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Divider } from 'semantic-ui-react';
-import './style.css'
+import './ProductCard.css'
 
 const formatDate = (date) => {
   const currentDate = new Date();

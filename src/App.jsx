@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductsGrid from './containers/ProductsGrid'
+import LoadingStatus from './containers/LoadingStatus'
 import './App.css'
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
 
       <section className="products">
           <ProductsGrid/>
+          <LoadingStatus/>
       </section>
     </div>
   );
