@@ -6,7 +6,7 @@ const LoadingStatus = ({ isFetching, noMoreProducts }) => {
   if(isFetching) {
     return (
       <div className="loader">
-        <Loader active inline>Loading More Products</Loader>
+        <Loader active inline>loading...</Loader>
       </div>
     )
   }

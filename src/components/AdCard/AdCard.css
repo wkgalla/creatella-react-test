@@ -1,5 +1,6 @@
 .ad-card{
     height: 100%;
+    min-height: 240px !important;
 }
 
 .ad-image{
