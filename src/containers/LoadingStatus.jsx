@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import LoadingStatus from "../components/LoadingStatus/LoadingStatus";
 
-const LoadingStatusContainer = ({isFetching}) => {
-  return <LoadingStatus  isFetching={isFetching}/>;
+const LoadingStatusContainer = ({isFetching, noMoreProducts}) => {
+  return <LoadingStatus  isFetching={isFetching} noMoreProducts={noMoreProducts}/>;
 };
 
-const mapStateToProps = ({ isFetching }) => {
+const mapStateToProps = ({ isFetching, noMoreProducts }) => {
   return {
-    isFetching: isFetching
+    isFetching: isFetching,
+    noMoreProducts: noMoreProducts
   };
 }
 

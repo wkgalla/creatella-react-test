@@ -4,6 +4,7 @@ export const SET_FETCHING = 'SET_FETCHING';
 export const LOAD_MORE_PRODUCTS = 'LOAD_MORE_PRODUCTS';
 export const PRODUCTS_LOADED_FROM_STORE = 'PRODUCTS_LOADED_FROM_STORE';
 export const SET_SORT_VALUE = 'SET_SORT_VALUE';
+export const SET_NO_MORE_PRODUCTS = 'SET_NO_MORE_PRODUCTS';
 
 const PAGE_LIMIT = 10;
 
@@ -35,6 +36,10 @@ export const setSortValue = (value) => ({
   value: value
 })
 
+const setNoMoreProducts = () => ({
+  type: SET_NO_MORE_PRODUCTS
+})
+
 export const moveFetchedProductsToList = () => (dispatch, getState) => {
   const { nextProducts } = getState();
   if(nextProducts.length > 0) {
@@ -45,7 +50,10 @@ export const moveFetchedProductsToList = () => (dispatch, getState) => {
 }
 
 export const asyncFetchProducts = () => async (dispatch, getState) => {
-  const { products, sortValue } = getState();
+  const { products, sortValue, noMoreProducts } = getState();
+  if(noMoreProducts) {
+    return
+  }
   const sortQueryParam = sortValue ? `&_sort=${sortValue}` : '';
   const page = products.length / PAGE_LIMIT + 1;
   dispatch(setProductFetching(true));
@@ -53,6 +61,9 @@ export const asyncFetchProducts = () => async (dispatch, getState) => {
   const productsList = await res.json();
   dispatch(setProductFetching(false));
   dispatch(setNextProducts(productsList));
+  if (productsList.length < PAGE_LIMIT) {
+    dispatch(setNoMoreProducts())
+  }
 }
 
 export const changeSortOption = (value) => dispatch => {

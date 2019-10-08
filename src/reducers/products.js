@@ -5,7 +5,8 @@ import {
   SET_FETCHING,
   LOAD_MORE_PRODUCTS,
   PRODUCTS_LOADED_FROM_STORE,
-  SET_SORT_VALUE
+  SET_SORT_VALUE,
+  SET_NO_MORE_PRODUCTS
 } from '../actions/products'
 
 const products = (state = [], action) => {
@@ -59,12 +60,24 @@ const sortValue = (state = '', action) => {
   }
 }
 
+const noMoreProducts = (state = false, action) => {
+  switch (action.type) {
+    case SET_NO_MORE_PRODUCTS:
+      return true;
+    case SET_SORT_VALUE:
+      return false
+    default:
+      return state
+  }
+}
+
 const productReducer = combineReducers({
     products,
     nextProducts,
     isFetching,
     loadMoreProducts,
-    sortValue
+    sortValue,
+    noMoreProducts
 })
   
 export default productReducer
