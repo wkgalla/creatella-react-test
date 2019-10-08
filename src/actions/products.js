@@ -3,6 +3,9 @@ export const SET_NEXT_PRODUCTS = 'SET_NEXT_PRODUCTS';
 export const SET_FETCHING = 'SET_FETCHING';
 export const LOAD_MORE_PRODUCTS = 'LOAD_MORE_PRODUCTS';
 export const PRODUCTS_LOADED_FROM_STORE = 'PRODUCTS_LOADED_FROM_STORE';
+export const SET_SORT_VALUE = 'SET_SORT_VALUE';
+
+const PAGE_LIMIT = 10;
 
 const setProductList = (productsArray) => ({
     type: SET_PRODUCTS,
@@ -27,6 +30,11 @@ const finishMovingProductsToList = () => ({
   type: PRODUCTS_LOADED_FROM_STORE
 })
 
+export const setSortValue = (value) => ({
+  type: SET_SORT_VALUE,
+  value: value
+})
+
 export const moveFetchedProductsToList = () => (dispatch, getState) => {
   const { nextProducts } = getState();
   if(nextProducts.length > 0) {
@@ -37,11 +45,17 @@ export const moveFetchedProductsToList = () => (dispatch, getState) => {
 }
 
 export const asyncFetchProducts = () => async (dispatch, getState) => {
-  const { products } = getState();
-  const page = products.length / 10 + 1;
+  const { products, sortValue } = getState();
+  const sortQueryParam = sortValue ? `&_sort=${sortValue}` : '';
+  const page = products.length / PAGE_LIMIT + 1;
   dispatch(setProductFetching(true));
-  const res = await fetch(`/api/products?_page=${page}&_limit=10`);
+  const res = await fetch(`/api/products?_page=${page}&_limit=${PAGE_LIMIT}${sortQueryParam}`);
   const productsList = await res.json();
   dispatch(setProductFetching(false));
   dispatch(setNextProducts(productsList));
+}
+
+export const changeSortOption = (value) => dispatch => {
+  dispatch(setSortValue(value));
+  dispatch(asyncFetchProducts());
 }

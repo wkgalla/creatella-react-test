@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductsGrid from './containers/ProductsGrid'
 import LoadingStatus from './containers/LoadingStatus'
+import SortDropdown from './containers/SortDropdown';
 import './App.css'
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       </header>
 
       <section className="products">
+          <SortDropdown/>
           <ProductsGrid/>
           <LoadingStatus/>
       </section>

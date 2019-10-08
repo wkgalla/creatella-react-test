@@ -1,0 +1,9 @@
+.sort-dropdown-container {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.sort-dropdown {
+    min-width: 200px;
+    justify-content: space-between;
+}

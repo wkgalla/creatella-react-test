@@ -4,13 +4,16 @@ import {
   SET_NEXT_PRODUCTS,
   SET_FETCHING,
   LOAD_MORE_PRODUCTS,
-  PRODUCTS_LOADED_FROM_STORE
+  PRODUCTS_LOADED_FROM_STORE,
+  SET_SORT_VALUE
 } from '../actions/products'
 
 const products = (state = [], action) => {
     switch (action.type) {
       case SET_PRODUCTS:
         return [...state, ...action.productsArray]
+      case SET_SORT_VALUE:
+        return []
       default:
         return state
     }
@@ -47,11 +50,21 @@ const loadMoreProducts = (state = false, action) => {
   }
 }
 
+const sortValue = (state = '', action) => {
+  switch (action.type) {
+    case SET_SORT_VALUE:
+      return action.value
+    default:
+      return state
+  }
+}
+
 const productReducer = combineReducers({
     products,
     nextProducts,
     isFetching,
-    loadMoreProducts
-  })
+    loadMoreProducts,
+    sortValue
+})
   
-  export default productReducer
+export default productReducer
