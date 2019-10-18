@@ -5,7 +5,8 @@
   "description": "Build a grid of product items and ads",
   "main": "server/index.js",
   "scripts": {
-    "start": "react-scripts start & json-server server/index.js --port 3001 --routes server/routes.json --middlewares server/handle-delay.js server/handle-ads.js",
+    "start-server": "json-server server/index.js --port 3001 --routes server/routes.json --middlewares server/handle-delay.js server/handle-ads.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

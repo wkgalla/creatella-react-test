@@ -1,3 +1,10 @@
+Steps to run
+----
+
+- `npm install` to install all dependencies.
+- Start server with `npm run start-server`.
+- Start web app wih `npm start`.
+
 Products Grid
 ====
 
@@ -35,10 +42,6 @@ Products API
 
 FAQ
 ----
-
-### How do I start the app?
-
-Start with `npm start`. The server will look for any files you add to the `public/` directory.
 
 ### What libraries/frameworks, packages, tools can I use?
 
